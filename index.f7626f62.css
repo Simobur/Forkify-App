@@ -540,7 +540,7 @@ body {
   content: "";
   height: 100%;
   width: 100%;
-  opacity: .6;
+  opacity: .2;
   background-image: linear-gradient(to bottom right, #fbdb89, #f48982);
   display: block;
   position: absolute;
