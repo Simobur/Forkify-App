@@ -596,6 +596,8 @@ const controlRecipes = async function() {
         (0, _recipeViewJsDefault.default).clear();
         //Render spinner
         (0, _recipeViewJsDefault.default).renderSpinner();
+        // 0 Results view to mark selected saerch
+        (0, _resultsViewJsDefault.default).update(_modelJs.getSearchResaultsPage());
         // 1) Download recipy from API
         await _modelJs.loadRecipe(id);
         //2) Render recipy on website
@@ -2810,7 +2812,6 @@ class View {
         this._parentElement.innerHTML = "";
     }
     update(data) {
-        if (!data || Array.isArray(data) && data.length === 0) return this.renderError();
         this._data = data;
         const newMarkup = this._generateMarkup();
         const newDOM = document.createRange().createContextualFragment(newMarkup);
@@ -3196,9 +3197,10 @@ class ResultsView extends (0, _viewJsDefault.default) {
         return this._data.map(this._generateMarkupPreview).join("");
     }
     _generateMarkupPreview(element) {
+        const id = window.location.hash.slice(1);
         return `
     <li class="preview">
-      <a class="preview__link" href="#${element.id}">
+      <a class="preview__link ${element.id === id ? "preview__link--active" : ""}" href="#${element.id}">
       <figure class="preview__fig">
           <img src="${element.image}" alt="${element.title}" />
       </figure>
